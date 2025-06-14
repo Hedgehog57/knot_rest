@@ -1,0 +1,12 @@
+audit-log: '/var/log/knot_rest/audit.log'
+
+database: 'sqlite:////var/lib/knot_rest/database.db'
+
+libknot: '/usr/lib/x86_64-linux-gnu/libknot.so.13'
+
+socket:
+  path: '/run/knot.sock'
+  timeout: 60
+
+token:
+  expiration: 600

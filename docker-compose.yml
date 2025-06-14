@@ -1,0 +1,24 @@
+services:
+  knot_rest:
+    container_name: knot_rest
+    image: knot_rest:0.0.3
+    env_file: .env
+    user: ${KNOT_UID}:${KNOT_GID}
+    ports:
+      - ${KNOT_REST_PORT}:${KNOT_REST_PORT}/tcp
+    volumes:
+      - './db:/var/lib/knot_rest:rw'
+      - '/var/log/knot_rest:/var/log/knot_rest:rw'
+      - type: bind
+        source: ${KNOT_SOCKET_FILE}
+        target: /run/knot.sock
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./knot_rest.yaml
+        target: /knot_rest.yaml
+        bind:
+          create_host_path: false
+        read_only: true
+    restart: unless-stopped
+
