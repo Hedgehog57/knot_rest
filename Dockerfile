@@ -1,11 +1,9 @@
-FROM python:bookworm AS build
+FROM python:3-alpine AS build
 
-RUN apt update && \
-    apt upgrade -y && \
-    apt install -y \
-            libknot13 \
+RUN apk update && \
+    apk add --no-cache \
+            knot-libs \
             git && \
-    apt-get clean && \
     git clone https://gitlab.nic.cz/knot/knot-dns-rest.git && \
     mkdir venv && \
     cd venv && \
@@ -15,18 +13,14 @@ RUN apt update && \
             -r ../knot-dns-rest/requirements.txt && \
     python3 -m pip install ../knot-dns-rest
 
-FROM python:3-slim-bookworm AS final
+FROM python:3-alpine AS final
 
-COPY ./entrypoint.sh /
+COPY --chmod=0755 ./entrypoint.sh /
 COPY --from=build /venv /venv
 
-RUN apt update && \
-    apt upgrade -y && \
-    apt install -y \
-            libknot13 && \
-    apt-get clean && \
+RUN apk add --no-cache \
+            knot-libs && \
     mkdir /var/log/knot_rest && \
-    mkdir /var/lib/knot_rest && \
-    chmod 755 /entrypoint.sh
+    mkdir /var/lib/knot_rest
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/bin/sh", "/entrypoint.sh" ]

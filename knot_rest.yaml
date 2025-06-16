@@ -2,7 +2,11 @@ audit-log: '/var/log/knot_rest/audit.log'
 
 database: 'sqlite:////var/lib/knot_rest/database.db'
 
-libknot: '/usr/lib/x86_64-linux-gnu/libknot.so.13'
+# Debian Bookworm
+#libknot: '/usr/lib/x86_64-linux-gnu/libknot.so.13'
+
+# Alpine Linux 3.22
+libknot: '/usr/lib/libknot.so.15'
 
 socket:
   path: '/run/knot.sock'

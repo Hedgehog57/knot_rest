@@ -8,7 +8,7 @@ services:
       - ${KNOT_REST_PORT}:${KNOT_REST_PORT}/tcp
     volumes:
       - './db:/var/lib/knot_rest:rw'
-      - '/var/log/knot_rest:/var/log/knot_rest:rw'
+      - './log/:/var/log/knot_rest:rw'
       - type: bind
         source: ${KNOT_SOCKET_FILE}
         target: /run/knot.sock

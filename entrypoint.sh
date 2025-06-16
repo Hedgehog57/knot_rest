@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 . /venv/bin/activate
 if [ ! -f /var/lib/knot_rest/database.db ]; then
   flask --app 'knot_rest:create_app("/knot_rest.yaml")' database init && \
@@ -7,4 +7,4 @@ if [ ! -f /var/lib/knot_rest/database.db ]; then
 fi
 
 flask --app 'knot_rest:create_app("/knot_rest.yaml")' users reset ${KNOT_REST_ADMIN_USER} ${KNOT_REST_ADMIN_PASSWD}
-python3 -m knot_rest -l knot_rest:$KNOT_REST_PORT -c /knot_rest.yaml
+python3 -m knot_rest -l knot_rest:$KNOT_REST_PORT -c /knot_rest.yaml -S

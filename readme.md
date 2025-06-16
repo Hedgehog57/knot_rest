@@ -1,7 +1,7 @@
 Docker implementation for knot-dns-rest project by jan.hak@nic.cz
 Original code taken from https://gitlab.nic.cz/knot/knot-dns-rest
 
-Images are based on Debian Bookworm and python 3.13
+Images are based on Alpine Linux and python 3.13
 Shoud be used behind reverse proxy.
 
 Image creation:
